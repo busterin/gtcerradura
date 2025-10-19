@@ -1,1 +1,54 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Cerradura Steampunk — Prototipo (2 Fases)</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="frame">
+    <div class="header">
+      <span class="badge">STEAMLOCK</span>
+      <div class="title">Cerradura steampunk — Prototipo jugable</div>
+      <div style="margin-left:auto;display:flex;gap:8px;">
+        <button class="btn secondary" id="btnReset">Reiniciar</button>
+        <button class="btn" id="btnSkip">Saltar fase</button>
+      </div>
+    </div>
 
+    <div class="panel">
+      <div id="stage"></div>
+      <div class="sidebar">
+        <div class="phase-tag">Fase actual</div>
+        <div id="phaseLabel" class="badge">FASE 1 · Montaje</div>
+        <div class="vspace"></div>
+        <div class="hint" id="hintBox">
+          <strong>Objetivo:</strong> Arrastra los 2 engranajes sueltos a las <em>plazas</em> (anillos de latón) para que conecten el eje de entrada con el de salida. Deben engranar sin solaparse.<br><br>
+          Consejo: al soltar cerca, hacen <em>snap</em> a la plaza.
+        </div>
+        <div class="status wip" id="statusText">Pendiente</div>
+        <div class="vspace"></div>
+        <button class="btn" id="btnRotate">Girar entrada</button>
+        <div class="vspace"></div>
+        <button class="btn secondary" id="btnHow">¿Cómo se juega?</button>
+      </div>
+    </div>
+
+    <div class="overlay" id="overlay">
+      <div class="card" id="overlayCard">
+        <h2 id="overlayTitle">¡Bienvenido/a!</h2>
+        <p id="overlayMsg">Arrastra los engranajes a su sitio. Cuando el tren esté correcto, pasarás a la fase 2.</p>
+        <div class="vspace"></div>
+        <button class="btn" id="btnOverlay">Entendido</button>
+      </div>
+    </div>
+
+    <div class="footer">Prototipo listo para incrustar en Genially (un solo archivo). Sin imágenes externas.</div>
+  </div>
+
+  <svg id="svg" viewBox="0 0 1200 660" preserveAspectRatio="xMidYMid slice" style="position:absolute; inset:60px 320px 0 0;"></svg>
+
+  <script defer src="script.js"></script>
+</body>
+</html>
