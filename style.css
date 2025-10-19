@@ -38,7 +38,7 @@ html,body{
   position:absolute;left:0;right:0;top:0;height:60px;display:flex;align-items:center;gap:12px;padding:8px 16px;
   background:linear-gradient(180deg,rgba(255,255,255,.06),rgba(0,0,0,.15));
   border-bottom: 1px solid rgba(255,255,255,.08);
-  z-index: 3; /* sobre el SVG */
+  z-index: 3;
 }
 .badge{
   background:linear-gradient(180deg,var(--copper),var(--copper-dark));
@@ -61,7 +61,7 @@ html,body{
 .sidebar{
   padding:16px;border-left:1px solid rgba(255,255,255,.08);
   background:linear-gradient(180deg,rgba(0,0,0,.15),rgba(255,255,255,.02));
-  z-index:2; /* sobre el SVG */
+  z-index:2;
 }
 .hint{
   font-size:14px;line-height:1.4;background:rgba(0,0,0,.25);padding:10px;border-radius:10px;border:1px solid rgba(255,255,255,.08);
@@ -90,7 +90,7 @@ html,body{
   position:absolute;bottom:10px;left:10px;font-size:12px;opacity:.6; z-index:2;
 }
 
-/* Estilos SVG */
+/* SVG elementos */
 .peg{
   fill:#3a2a22; stroke:#120c08; stroke-width:3;
   filter: drop-shadow(0 2px 2px rgba(0,0,0,.6));
@@ -111,7 +111,7 @@ html,body{
 
 .overlay{
   position:absolute; inset:60px 0 0 0; display:none; align-items:center; justify-content:center; pointer-events:none;
-  z-index:4; /* sobre todo */
+  z-index:4;
 }
 .overlay.show{ display:flex; }
 .overlay .card{
@@ -122,3 +122,9 @@ html,body{
   border-radius:16px; padding:18px; box-shadow:0 30px 120px rgba(0,0,0,.5);
 }
 .needle{ stroke:#ffd089; stroke-width:6; stroke-linecap:round; filter: drop-shadow(0 0 6px rgba(255,208,137,.8)); }
+
+/* FIX: que la columna izquierda NO capture eventos */
+#stage { pointer-events: none; }
+/* opcionalmente, blindamos todavía más */
+.panel { pointer-events: none; }
+.sidebar, .header, .overlay { pointer-events: auto; }
