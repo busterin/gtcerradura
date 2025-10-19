@@ -38,6 +38,7 @@ html,body{
   position:absolute;left:0;right:0;top:0;height:60px;display:flex;align-items:center;gap:12px;padding:8px 16px;
   background:linear-gradient(180deg,rgba(255,255,255,.06),rgba(0,0,0,.15));
   border-bottom: 1px solid rgba(255,255,255,.08);
+  z-index: 3; /* sobre el SVG */
 }
 .badge{
   background:linear-gradient(180deg,var(--copper),var(--copper-dark));
@@ -46,12 +47,21 @@ html,body{
   text-shadow:0 1px 0 rgba(255,255,255,.35);
 }
 .title{font-weight:800;letter-spacing:.5px}
+
+/* SVG dentro de .frame, dejando hueco para la sidebar */
+.stage-svg{
+  position:absolute; inset:60px 320px 0 0; z-index:0;
+  width:100%; height:100%;
+}
+
 .panel{
   position:absolute;top:60px;bottom:0;left:0;right:0;display:grid;grid-template-columns: 1fr 320px;
+  z-index:1;
 }
 .sidebar{
   padding:16px;border-left:1px solid rgba(255,255,255,.08);
   background:linear-gradient(180deg,rgba(0,0,0,.15),rgba(255,255,255,.02));
+  z-index:2; /* sobre el SVG */
 }
 .hint{
   font-size:14px;line-height:1.4;background:rgba(0,0,0,.25);padding:10px;border-radius:10px;border:1px solid rgba(255,255,255,.08);
@@ -72,22 +82,25 @@ html,body{
 .btn:active{transform:translateY(1px)}
 .vspace{height:12px}
 .phase-tag{font-size:12px;opacity:.85;color:#dbcaa2;margin-bottom:4px}
-.status{
-  margin-top:8px;font-weight:700
-}
+.status{ margin-top:8px;font-weight:700 }
 .status.ok{color:var(--ok)}
 .status.wip{color:var(--warn)}
 .status.err{color:var(--err)}
 .footer{
-  position:absolute;bottom:10px;left:10px;font-size:12px;opacity:.6
+  position:absolute;bottom:10px;left:10px;font-size:12px;opacity:.6; z-index:2;
 }
-svg{width:100%;height:100%}
+
+/* Estilos SVG */
 .peg{
   fill:#3a2a22; stroke:#120c08; stroke-width:3;
   filter: drop-shadow(0 2px 2px rgba(0,0,0,.6));
 }
-.peg.ring{ fill: url(#brassGrad);}
-.pegGlow{filter: drop-shadow(0 0 8px var(--glow));}
+.peg.ring{
+  fill: url(#brassGrad);
+  stroke: rgba(0,0,0,.5);
+  stroke-width: 2.5;
+}
+.pegGlow{filter: drop-shadow(0 0 10px var(--glow));}
 .gear .rim{ fill:url(#gearGrad); stroke:#150e0a; stroke-width:2; }
 .gear .teeth{ stroke:#120c08; stroke-width:10; stroke-linecap:butt; stroke-dasharray: 14 14; }
 .gear .hub{ fill:#1d1511; stroke:#000; stroke-width:2 }
@@ -95,8 +108,10 @@ svg{width:100%;height:100%}
 .gear.draggable{ cursor: grab }
 .gear.draggable:active{ cursor: grabbing }
 .targetGlow{ filter: drop-shadow(0 0 10px rgba(0,255,140,.6)); }
+
 .overlay{
   position:absolute; inset:60px 0 0 0; display:none; align-items:center; justify-content:center; pointer-events:none;
+  z-index:4; /* sobre todo */
 }
 .overlay.show{ display:flex; }
 .overlay .card{
@@ -106,5 +121,4 @@ svg{width:100%;height:100%}
   border:1px solid rgba(255,255,255,.1);
   border-radius:16px; padding:18px; box-shadow:0 30px 120px rgba(0,0,0,.5);
 }
-.marks text{ font-weight:900; fill:#f7e9c8; paint-order: stroke; stroke:#000; stroke-width:2px;}
 .needle{ stroke:#ffd089; stroke-width:6; stroke-linecap:round; filter: drop-shadow(0 0 6px rgba(255,208,137,.8)); }
