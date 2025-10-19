@@ -1,1 +1,110 @@
-
+:root{
+  --bg1:#1b1512;
+  --bg2:#2d221d;
+  --copper:#b87333;
+  --copper-dark:#8b4d22;
+  --brass:#b59a4b;
+  --shadow: rgba(0,0,0,.45);
+  --glow: rgba(255, 214, 130, .45);
+  --ok:#66d17e;
+  --warn:#ffda6a;
+  --err:#ff6b6b;
+}
+html,body{
+  height:100%;
+  margin:0;
+  background:
+    radial-gradient(1200px 700px at 15% 10%, #3b2a22 0%, transparent 60%),
+    radial-gradient(900px 600px at 85% 85%, #3a2c25 0%, transparent 55%),
+    linear-gradient(180deg,var(--bg1),var(--bg2));
+  color:#f3e6d0;
+  font-family:system-ui,Segoe UI,Roboto,Helvetica,Arial,sans-serif;
+  overflow:hidden;
+}
+.frame{
+  position:relative;
+  width: min(100vw, 1200px);
+  height: min(100vh, 720px);
+  margin: 0 auto;
+  box-shadow: 0 10px 50px var(--shadow) inset, 0 0 0 8px #2b221c, 0 0 0 12px #4e3b31;
+  border-radius: 14px;
+  background:
+    radial-gradient(400px 220px at 15% 20%, rgba(255,255,255,.04), transparent 70%),
+    repeating-linear-gradient(45deg, rgba(255,255,255,.02), rgba(255,255,255,.02) 6px, transparent 6px, transparent 12px),
+    linear-gradient(180deg,#1f1916,#2a221e);
+  overflow:hidden;
+}
+.header{
+  position:absolute;left:0;right:0;top:0;height:60px;display:flex;align-items:center;gap:12px;padding:8px 16px;
+  background:linear-gradient(180deg,rgba(255,255,255,.06),rgba(0,0,0,.15));
+  border-bottom: 1px solid rgba(255,255,255,.08);
+}
+.badge{
+  background:linear-gradient(180deg,var(--copper),var(--copper-dark));
+  border:1px solid #5b3618;color:#120c08;
+  padding:6px 10px;border-radius:10px;font-weight:700;box-shadow:0 2px 0 #5b3618 inset, 0 6px 20px var(--shadow);
+  text-shadow:0 1px 0 rgba(255,255,255,.35);
+}
+.title{font-weight:800;letter-spacing:.5px}
+.panel{
+  position:absolute;top:60px;bottom:0;left:0;right:0;display:grid;grid-template-columns: 1fr 320px;
+}
+.sidebar{
+  padding:16px;border-left:1px solid rgba(255,255,255,.08);
+  background:linear-gradient(180deg,rgba(0,0,0,.15),rgba(255,255,255,.02));
+}
+.hint{
+  font-size:14px;line-height:1.4;background:rgba(0,0,0,.25);padding:10px;border-radius:10px;border:1px solid rgba(255,255,255,.08);
+}
+.hint strong{color:var(--warn)}
+.btn{
+  -webkit-tap-highlight-color: transparent;
+  user-select:none; cursor:pointer; display:inline-flex;align-items:center;gap:8px;
+  padding:10px 14px;border-radius:10px;font-weight:700;border:1px solid #64401f;
+  background:linear-gradient(180deg,var(--copper),var(--copper-dark));
+  color:#120c08; text-shadow:0 1px 0 rgba(255,255,255,.35);
+  box-shadow: inset 0 2px 0 #ffd7a0, inset 0 -2px 0 #5b3618, 0 6px 16px var(--shadow);
+}
+.btn.secondary{
+  border:1px solid #6b5b2a;
+  background:linear-gradient(180deg,#b9a059,#7e6b31); color:#0b0906;
+}
+.btn:active{transform:translateY(1px)}
+.vspace{height:12px}
+.phase-tag{font-size:12px;opacity:.85;color:#dbcaa2;margin-bottom:4px}
+.status{
+  margin-top:8px;font-weight:700
+}
+.status.ok{color:var(--ok)}
+.status.wip{color:var(--warn)}
+.status.err{color:var(--err)}
+.footer{
+  position:absolute;bottom:10px;left:10px;font-size:12px;opacity:.6
+}
+svg{width:100%;height:100%}
+.peg{
+  fill:#3a2a22; stroke:#120c08; stroke-width:3;
+  filter: drop-shadow(0 2px 2px rgba(0,0,0,.6));
+}
+.peg.ring{ fill: url(#brassGrad);}
+.pegGlow{filter: drop-shadow(0 0 8px var(--glow));}
+.gear .rim{ fill:url(#gearGrad); stroke:#150e0a; stroke-width:2; }
+.gear .teeth{ stroke:#120c08; stroke-width:10; stroke-linecap:butt; stroke-dasharray: 14 14; }
+.gear .hub{ fill:#1d1511; stroke:#000; stroke-width:2 }
+.gear .spoke{ stroke:#0c0806; stroke-width:6; opacity:.45 }
+.gear.draggable{ cursor: grab }
+.gear.draggable:active{ cursor: grabbing }
+.targetGlow{ filter: drop-shadow(0 0 10px rgba(0,255,140,.6)); }
+.overlay{
+  position:absolute; inset:60px 0 0 0; display:none; align-items:center; justify-content:center; pointer-events:none;
+}
+.overlay.show{ display:flex; }
+.overlay .card{
+  pointer-events:auto; text-align:center; max-width: 560px;
+  background: radial-gradient(540px 200px at 50% -50%, rgba(255,255,255,.06), transparent 60%),
+              linear-gradient(180deg,#271e18,#2f241e);
+  border:1px solid rgba(255,255,255,.1);
+  border-radius:16px; padding:18px; box-shadow:0 30px 120px rgba(0,0,0,.5);
+}
+.marks text{ font-weight:900; fill:#f7e9c8; paint-order: stroke; stroke:#000; stroke-width:2px;}
+.needle{ stroke:#ffd089; stroke-width:6; stroke-linecap:round; filter: drop-shadow(0 0 6px rgba(255,208,137,.8)); }
