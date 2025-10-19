@@ -11,14 +11,18 @@ function dist(a, b) { const dx = a.x - b.x, dy = a.y - b.y; return Math.hypot(dx
 
 // --- Audio (sin archivos)
 const AudioCtx = window.AudioContext || window.webkitAudioContext;
-const actx = new AudioCtx();
+let actx;
+function ensureAudio() { actx ||= new AudioCtx(); }
 function beep(freq = 440, dur = 0.08, type = 'square', gain = 0.04) {
-  const o = actx.createOscillator(), g = actx.createGain();
-  o.type = type; o.frequency.value = freq;
-  g.gain.value = gain;
-  o.connect(g); g.connect(actx.destination);
-  o.start();
-  setTimeout(() => { o.stop(); }, dur * 1000);
+  try{
+    ensureAudio();
+    const o = actx.createOscillator(), g = actx.createGain();
+    o.type = type; o.frequency.value = freq;
+    g.gain.value = gain;
+    o.connect(g); g.connect(actx.destination);
+    o.start();
+    setTimeout(() => { o.stop(); }, dur * 1000);
+  }catch(_){/* iOS sin gesto: ignora */}
 }
 function chime() {
   beep(740, 0.06, 'sine', 0.05); setTimeout(() => beep(880, 0.08, 'sine', 0.05), 70);
@@ -40,7 +44,7 @@ svg.append(defs);
 const plate = makeSVG('rect', { x: 10, y: 10, width: 1180, height: 640, rx: 16, fill: '#241b16', stroke: '#0b0806', 'stroke-width': 3 });
 svg.append(plate);
 
-// --- Plazas (pegs) y ejes
+// --- Plazas y ejes
 const pegs = [
   { id: 'pegA', x: 250, y: 330, r: 56 },
   { id: 'pegB', x: 500, y: 210, r: 46 },
@@ -51,7 +55,7 @@ const outputShaft = { id: 'output', x: 1020, y: 330, r: 50 };
 
 function drawPeg(peg) {
   const g = makeSVG('g', { class: 'pegGroup', 'data-id': peg.id });
-  const ring = makeSVG('circle', { cx: peg.x, cy: peg.y, r: peg.r + 12, class: 'peg ring', opacity: .85 });
+  const ring = makeSVG('circle', { cx: peg.x, cy: peg.y, r: peg.r + 12, class: 'peg ring', opacity: .92 });
   const hole = makeSVG('circle', { cx: peg.x, cy: peg.y, r: 14, class: 'peg' });
   g.append(ring, hole);
   svg.append(g);
@@ -134,7 +138,7 @@ svg.addEventListener('pointermove', e => {
   drag.obj.y = drag.baseY + dy * (660 / svg.clientHeight);
   updateTransform(drag.obj);
 });
-svg.addEventListener('pointerup', e => {
+svg.addEventListener('pointerup', () => {
   if (!drag) return;
   const obj = drag.obj;
   let snapped = false;
@@ -300,7 +304,7 @@ function checkPhase2() {
     $('#statusText').className = 'status ok';
     gearOutput.el.classList.add('targetGlow');
     chime();
-    overlay('¡Bien hecho!', 'Has abierto la cerradura. Este es un prototipo; podemos ajustar dificultad, estética e historia. ¿Quieres que guarde este estilo?');
+    overlay('¡Bien hecho!', 'Has abierto la cerradura. ¿Quieres animación final con vapor y “clic” metálico?');
   } else {
     $('#statusText').textContent = 'Alinea el puntero';
     $('#statusText').className = 'status wip';
